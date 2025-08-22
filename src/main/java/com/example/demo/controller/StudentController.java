@@ -19,25 +19,22 @@ import com.example.demo.model.Student;
 public class StudentController {
 
     @Autowired
-    private StudentDAO studentDAO;
+    private StudentDAO dao;
 
-    // ✅ Get all students
     @GetMapping
-    public List<Student> getAllStudents() {
-        return studentDAO.getAllStudents();
+    public List<Student> getAll() {
+        return dao.getAllStudents();
     }
 
-    // ✅ Insert a new student
     @PostMapping
-    public String addStudent(@RequestBody Student student) {
-        int rows = studentDAO.insertStudent(student);
-        return rows > 0 ? "Student added successfully!" : "Failed to add student.";
+    public String addStudent(@RequestBody Student s) {
+        dao.insertStudent(s);
+        return "Student added!";
     }
 
-    // ✅ Delete a student by ID
     @DeleteMapping("/{id}")
     public String deleteStudent(@PathVariable int id) {
-        int rows = studentDAO.deleteStudent(id);
-        return rows > 0 ? "Student deleted successfully!" : "No student found with ID " + id;
+        dao.deleteStudent(id);
+        return "Student deleted!";
     }
 }
